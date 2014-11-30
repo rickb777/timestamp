@@ -1,0 +1,7 @@
+syntax: glob
+
+bin/
+pkg/
+src/rickb777/timestamp/util/version.go
+*.iws
+
