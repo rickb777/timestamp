@@ -26,17 +26,19 @@ var base = flag.Int("base", 36,
 func main() {
 	flag.Parse()
 	if *version {
+		fmt.Printf("tip %s, branch %s, date %s\n", util.HgTip, util.HgBranch, util.BuildDate)
 		fmt.Println(util.HgPath)
-	}
-	sub := int64(0)
-	if *zero != "" {
-		t, err := time.Parse(*layout, *zero)
-		if err != nil {
-			fmt.Fprintln(os.Stderr, err.Error())
+	} else {
+		sub := int64(0)
+		if *zero != "" {
+			t, err := time.Parse(*layout, *zero)
+			if err != nil {
+				fmt.Fprintln(os.Stderr, err.Error())
+			}
+			sub = t.UnixNano()
 		}
-		sub = t.UnixNano()
+		nowNs := time.Now().UnixNano() - sub
+		nowS := nowNs / 1000000000
+		fmt.Println(strconv.FormatInt(nowS, *base))
 	}
-	nowNs := time.Now().UnixNano() - sub
-	nowS := nowNs / 1000000000
-	fmt.Println(strconv.FormatInt(nowS, *base))
 }
