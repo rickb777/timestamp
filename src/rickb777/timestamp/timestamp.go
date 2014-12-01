@@ -16,7 +16,7 @@ var version = flag.Bool("V", false,
 var uppercase = flag.Bool("uppercase", false,
 	"Prints the timestamp using 0-9A-Z (default is 0-9a-z).")
 
-var precision = flag.String("precision", "min",
+var precision = flag.String("precision", "sec",
 	"The precision of the generated timestamp, one of: day, hour, min, sec, s, ms, us, µs, ns")
 
 var layout = flag.String("layout", "2006-01-02",
@@ -27,8 +27,8 @@ var zero = flag.String("zero", "",
 					"For consistent results, choose a fixed data and do not choose a future date! " +
 				"The default is the Unix epoch (1st January 1970). Format: yyyy-mm-dd unless you use -layout")
 
-var base = flag.Int("base", 36,
-	"The number base used for the output string, 2 to 36. The default is 36, which is a short string.")
+var base = flag.Int("base", 10,
+	"The number base used for the output string, 2 to 36. Base 36 is particularly useful in that it gives a short string.")
 
 func main() {
 	flag.Parse()
