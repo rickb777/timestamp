@@ -30,6 +30,9 @@ var zero = flag.String("zero", "",
 var base = flag.Int("base", 10,
 	"The number base used for the output string, 2 to 36. Base 36 is particularly useful in that it gives a short string.")
 
+var value = flag.Int("value", 0,
+	"Sets the actual number printed. Value must be a base-10 number and will be converted to the specified output base.")
+
 func main() {
 	flag.Parse()
 	if *version {
@@ -55,16 +58,21 @@ func main() {
 		os.Exit(1)
 	}
 
-	sub := int64(0)
-	if *zero != "" {
-		t, err := time.Parse(*layout, *zero)
-		if err != nil {
-			fmt.Fprintln(os.Stderr, err.Error())
+	nowS := int64(*value)
+
+	if *value == 0 {
+		sub := int64(0)
+		if *zero != "" {
+			t, err := time.Parse(*layout, *zero)
+			if err != nil {
+				fmt.Fprintln(os.Stderr, err.Error())
+			}
+			sub = t.UnixNano()
 		}
-		sub = t.UnixNano()
+		nowNs := time.Now().UnixNano() - sub
+		nowS = nowNs / divisor
 	}
-	nowNs := time.Now().UnixNano() - sub
-	nowS := nowNs / divisor
+
 	tstamp := strconv.FormatInt(nowS, *base)
 	if *uppercase {
 		tstamp = strings.ToUpper(tstamp)

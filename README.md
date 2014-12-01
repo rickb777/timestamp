@@ -34,3 +34,13 @@ Instead of the 1st Jan 1970 Epoch, a different inception point can be specified,
 
 will print in base-36 the number of minutes since 1st Jan 2014, this being a much smaller number at
 the time of writing.
+
+A short-as-possible example might be
+
+    timestamp -zero 2014-12-01 -precision day -base 36
+
+It is also possible to specify the output value explicitly, which can use `timestamp` simply for number base conversion
+
+    timestamp -value 100 -base 36
+
+This is appropriate if you generate your own sequence of version numbers instead of using the time.
