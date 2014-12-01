@@ -11,22 +11,19 @@ The precision can be set anywhere between days and nanoseconds, with seconds bei
 
 ## Examples
 
+    timestamp
     timestamp -precision sec -base 10
 
-prints the number of seconds since the Unix Epoch, which is the same result as given by
+both print the number of seconds since the Unix Epoch, which is the same result as given by
 
     date '%+s'
 
-The default
-
-    timestamp
-
-will print the number of seconds since the Epoch in base-10. A more compact timestamp will be produced by
+A more compact timestamp will be produced by
 
     timestamp -precision min -base 36
 
-which is ideal for asset tagging if the assets are released no more often than once per minute. You might
-even prefer once per hour or per day.
+which specifies minutes precision and is ideal for asset tagging if the assets are released no more 
+often than once per minute. You might even prefer once per hour or per day.
 
 Instead of the 1st Jan 1970 Epoch, a different inception point can be specified, so
 
@@ -39,8 +36,9 @@ A short-as-possible example might be
 
     timestamp -zero 2014-12-01 -precision day -base 36
 
-It is also possible to specify the output value explicitly, which can use `timestamp` simply for number base conversion
+Instead of the current time being printed as a timestamp, it is also possible to specify the 
+output value explicitly. This would use `timestamp` simply for number base conversion
 
     timestamp -value 100 -base 36
 
-This is appropriate if you generate your own sequence of version numbers instead of using the time.
+prints the number 100 in base 36, i.e. "2s". This is appropriate if you generate your own sequence of version numbers instead of using the time and you want to benefit from base-36 URL contraction.
