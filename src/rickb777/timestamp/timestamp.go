@@ -6,7 +6,6 @@ import (
 	"strconv"
 	"flag"
 	"os"
-	"rickb777/timestamp/util"
 	"strings"
 )
 
@@ -36,8 +35,8 @@ var value = flag.Int("value", 0,
 func main() {
 	flag.Parse()
 	if *version {
-		fmt.Printf("tip %s, branch %s, date %s\n", util.HgTip, util.HgBranch, util.BuildDate)
-		fmt.Println(util.HgPath)
+		fmt.Printf("tip %s, branch %s, date %s\n", HgTip, HgBranch, BuildDate)
+		fmt.Println(HgPath)
 		os.Exit(0)
 
 	}
