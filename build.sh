@@ -1,7 +1,7 @@
 #!/bin/sh -e
 . ./env.sh
 
-for d in splitter timestamp; do
+for d in timestamp; do
   VFILE=src/rickb777/$d/version.go
 
   echo "// Generated automatically" > $VFILE
