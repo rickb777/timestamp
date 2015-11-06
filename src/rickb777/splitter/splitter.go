@@ -4,19 +4,38 @@ import (
 	"fmt"
 	"flag"
 	"os"
+	"strings"
+	"path"
+	"log"
+	"io"
 )
 
 var version = flag.Bool("V", false,
 	"Prints the build version information.")
 
-var par = flag.Bool("par", false,
-	"Parallel reading of the source files.")
+var gz = flag.Bool("gz", false,
+	"Gzip the output files.")
 
-var lines = flag.Int("lines", 1000,
-	"Prints the timestamp using 0-9A-Z (default is 0-9a-z).")
+//var par = flag.Bool("par", false,
+//	"Parallel reading of the source files.")
 
-var tmpdir = flag.String("tmpdir", "~/splitter-tmp",
-	"The precision of the generated timestamp, one of: day, hour, min, sec, s, ms, us, µs, ns")
+var chunkSizeP = flag.Int("chunk", 0,
+	"Chunk the output into many files, each of the number of lines specified here. Disabled if less than one.")
+var chunkSize int
+
+var outdirP = flag.String("outdir", "~/splitter-tmp",
+	"Output directory; prefix with '~/' for home folder.")
+var outdir string
+
+//-------------------------------------------------------------------------------------------------
+
+var chunkNum = 0
+
+func checkErrFatal(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
+}
 
 func main() {
 	flag.Parse()
@@ -24,8 +43,15 @@ func main() {
 		fmt.Printf("tip %s, branch %s, date %s\n", HgTip, HgBranch, BuildDate)
 		fmt.Println(HgPath)
 		os.Exit(0)
-
 	}
+
+	chunkSize = *chunkSizeP
+
+	outdir = path.Clean(*outdirP)
+	if strings.HasPrefix(outdir, "~/") {
+		outdir = os.Getenv("HOME") + outdir[1:]
+	}
+	os.MkdirAll(outdir, 0755)
 
 	files := flag.Args()
 	if len(files) == 0 {
@@ -33,13 +59,24 @@ func main() {
 		os.Exit(1)
 	}
 
+	var out io.WriteCloser
+
 	for _, arg := range files {
-		//		if *par {
-		//			go splitFile(arg)
-		//		} else {
+
+		line := 0
 		readFile(arg, func(s string) {
-			fmt.Println(s)
+			line++
+			if out == nil {
+				out = openNextOutputFile(arg)
+			}
+			fmt.Fprintln(out, s)
+			if line >= chunkSize && chunkSize > 0 {
+				checkErrFatal(out.Close())
+				out = nil
+				line = 0
+			}
 		})
-		//		}
 	}
+
+	checkErrFatal(out.Close())
 }
