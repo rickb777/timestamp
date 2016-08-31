@@ -3,31 +3,29 @@ package main
 import (
 	"time"
 	"fmt"
-	"strconv"
 	"flag"
 	"os"
-	"strings"
 )
 
 var version = flag.Bool("V", false,
 	"Prints the build version information.")
 
-var uppercase = flag.Bool("uppercase", false,
-	"Prints the timestamp using 0-9A-Z (default is 0-9a-z).")
-
-var precision = flag.String("precision", "sec",
-	"The precision of the generated timestamp, one of: day, hour, min, sec, s, ms, us, µs, ns")
+var precision = flag.String("precision", "second",
+	"The precision of the generated timestamp, one of: day, hour, minute|min, second|sec|s, ms, us, µs, ns")
 
 var layout = flag.String("layout", "2006-01-02",
 	"The format string for the -zero date/time. See http://golang.org/pkg/time/#pkg-constants for more info.")
 
 var zero = flag.String("zero", "",
-			"A date/time to be used as the zero point for time calculations. " +
-					"For consistent results, choose a fixed data and do not choose a future date! " +
-				"The default is the Unix epoch (1st January 1970). Format: yyyy-mm-dd unless you use -layout")
+	"A date/time to be used as the zero point for time calculations. " +
+		"For consistent results, choose a fixed data and do not choose a future date! " +
+		"The default is the Unix epoch (1st January 1970). Format: yyyy-mm-dd unless you use -layout")
 
 var base = flag.Int("base", 10,
-	"The number base used for the output string, 2 to 36. Base 36 is particularly useful in that it gives a short string.")
+	"The number base used for the output string, 2 to 66." +
+		"\n\tHigh bases are particularly useful in that a short string results." +
+		"\n\tBases up to 62 contain only alphanumeric characters; higher bases contain URL-safe punctuation." +
+		"\n\tThe characters used are " + digits)
 
 var value = flag.Int("value", 0,
 	"Sets the actual number printed. Value must be a base-10 number and will be converted to the specified output base.")
@@ -38,20 +36,21 @@ func main() {
 		fmt.Printf("tip %s, branch %s, date %s\n", HgTip, HgBranch, BuildDate)
 		fmt.Println(HgPath)
 		os.Exit(0)
-
 	}
 
 	var divisor int64
 	switch *precision {
-		case "day": divisor = int64(24 * 60 * 60 * 1000 * 1000 * 1000)
-		case "hour": divisor = int64(60 * 60 * 1000 * 1000 * 1000)
-		case "min": divisor = int64(60 * 1000 * 1000 * 1000)
-		case "sec": divisor = int64(1000 * 1000 * 1000)
-		case "s": divisor = int64(1000 * 1000 * 1000)
-		case "ms": divisor = int64(1000 * 1000)
-		case "us": divisor = int64(1000)
-		case "µs": divisor = int64(1000)
-		case "ns": divisor = int64(1)
+	case "day": divisor = int64(24 * 60 * 60 * 1000 * 1000 * 1000)
+	case "hour": divisor = int64(60 * 60 * 1000 * 1000 * 1000)
+	case "minute": divisor = int64(60 * 1000 * 1000 * 1000)
+	case "min": divisor = int64(60 * 1000 * 1000 * 1000)
+	case "second": divisor = int64(1000 * 1000 * 1000)
+	case "sec": divisor = int64(1000 * 1000 * 1000)
+	case "s": divisor = int64(1000 * 1000 * 1000)
+	case "ms": divisor = int64(1000 * 1000)
+	case "us": divisor = int64(1000)
+	case "µs": divisor = int64(1000)
+	case "ns": divisor = int64(1)
 	default:
 		flag.Usage()
 		os.Exit(1)
@@ -72,9 +71,10 @@ func main() {
 		nowS = nowNs / divisor
 	}
 
-	tstamp := strconv.FormatInt(nowS, *base)
-	if *uppercase {
-		tstamp = strings.ToUpper(tstamp)
+	tstamp, err := FormatNumber(nowS, *base)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, err.Error())
+		os.Exit(1)
 	}
 	fmt.Println(tstamp)
 }

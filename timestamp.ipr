@@ -157,46 +157,10 @@
       <module fileurl="file://$PROJECT_DIR$/timestamp.iml" filepath="$PROJECT_DIR$/timestamp.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_3" assert-keyword="false" jdk-15="false" project-jdk-name="Go 1.5" project-jdk-type="Go SDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_3" assert-keyword="false" jdk-15="false" project-jdk-name="Go 1.7" project-jdk-type="Go SDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="hg4idea" />
-  </component>
-  <component name="libraryTable">
-    <library name="GOPATH &lt;timestamp&gt;">
-      <CLASSES>
-        <root url="file://$USER_HOME$/gopath/src/golang.org" />
-        <root url="file://$USER_HOME$/gopath/src/github.com" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-      <excluded>
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/go/callgraph/cha/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/go/callgraph/rta/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/go/pointer/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/github.com/clipperhouse/fsnotify/.git" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/go/ssa/interp/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/go/gcimporter/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/cmd/cover/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/cmd/stringer/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/github.com/clipperhouse/stringer/.git" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/go/types/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/go/gccgoimporter/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/.git" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/go/ssa/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/cmd/callgraph/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/go/ssa/ssautil/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/cmd/vet/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/cmd/fiximports/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/github.com/clipperhouse/slice/.git" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/go/loader/testdata" />
-        <root url="file://$USER_HOME$/gopath/src/github.com/clipperhouse/gen/.git" />
-        <root url="file://$USER_HOME$/gopath/src/github.com/clipperhouse/typewriter/.git" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/oracle/testdata" />
-        <root url="file://$PROJECT_DIR$" />
-        <root url="file://$USER_HOME$/gopath/src/golang.org/x/tools/refactor/eg/testdata" />
-      </excluded>
-    </library>
   </component>
 </project>
