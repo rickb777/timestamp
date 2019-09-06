@@ -1,5 +1,3 @@
-syntax: glob
-
 bin/
 pkg/
 src/rickb777/*/version.go

@@ -23,13 +23,18 @@
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
   <component name="GoLibraries">
     <option name="urls">
       <list>
         <option value="file://$USER_HOME$/gopath" />
       </list>
     </option>
+  </component>
+  <component name="InspectionProjectProfileManager">
+    <profile version="1.0">
+      <option name="myName" value="Project Default" />
+    </profile>
+    <version value="1.0" />
   </component>
   <component name="Palette2">
     <group name="Swing">
@@ -156,9 +161,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/timestamp.iml" filepath="$PROJECT_DIR$/timestamp.iml" />
     </modules>
-  </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_3" assert-keyword="false" jdk-15="false" project-jdk-name="Go 1.7" project-jdk-type="Go SDK">
-    <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="hg4idea" />
