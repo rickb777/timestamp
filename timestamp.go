@@ -33,8 +33,7 @@ var value = flag.Int("value", 0,
 func main() {
 	flag.Parse()
 	if *version {
-		fmt.Printf("tip %s, branch %s, date %s\n", HgTip, HgBranch, BuildDate)
-		fmt.Println(HgPath)
+		fmt.Printf("Version %s, date %s\n", Version, BuildDate)
 		os.Exit(0)
 	}
 

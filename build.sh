@@ -1,22 +1,18 @@
 #!/bin/sh -e
-. ./env.sh
 
-for d in timestamp; do
-  VFILE=src/rickb777/$d/version.go
+VFILE=version.go
 
-  echo "// Generated automatically" > $VFILE
-  echo "package main" >> $VFILE
-  echo "const HgTip     = \"$(hg heads . |grep changeset: |head -1 |cut -f3 -d:)\"" >> $VFILE
-  echo "const HgPath    = \"$(hg paths default)\"" >> $VFILE
-  echo "const HgBranch  = \"$(hg branch)\"" >> $VFILE
-  echo "const BuildDate = \"$(date '+%FT%T')\"" >> $VFILE
-  echo "const BuildYear = \"$(date '+%Y')\"" >> $VFILE
-  echo "const BuildUser = \"$USER\"" >> $VFILE
-done
+echo "// Generated automatically - do not edit!" > $VFILE
+echo "package main" >> $VFILE
+echo "" >> $VFILE
+echo "const Version   = \"$(git describe --tags --always 2>/dev/null)\"" >> $VFILE
+echo "const BuildDate = \"$(date '+%FT%T')\"" >> $VFILE
+echo "const BuildYear = \"$(date '+%Y')\"" >> $VFILE
+echo "const BuildUser = \"$USER\"" >> $VFILE
 
 echo go install ...
-go install rickb777/...
+go build -o timestamp .
 
 echo go test ...
-go test rickb777/...
+go test .
 
