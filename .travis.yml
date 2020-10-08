@@ -3,6 +3,9 @@ language: go
 go:
   - '1.15'
 
+install:
+  - go mod download
+
 script:
   - ./build.sh
 
