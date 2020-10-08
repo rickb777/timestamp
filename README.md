@@ -1,5 +1,8 @@
 # Timestamp
 
+[![Build Status](https://travis-ci.org/rickb777/timestamp.svg?branch=master)](https://travis-ci.org/rickb777/timestamp/builds)
+[![Issues](https://img.shields.io/github/issues/rickb777/timestamp.svg)](https://github.com/rickb777/timestamp/issues)
+
 Timestamp is a simple utility, similar to the Unix `date` command. Timestamp outputs the current time in a format
 suitable for using in URLs as a marker for a version. The purpose is to support far-future expiry of assets
 by giving each new version of an asset a distinct URL.
