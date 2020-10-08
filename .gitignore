@@ -3,3 +3,4 @@ pkg/
 timestamp
 version.go
 *.iws
+.idea/workspace.xml
