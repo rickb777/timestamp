@@ -1,3 +1,3 @@
 module github.com/rickb777/timestamp
 
-go 1.15
+go 1.17
