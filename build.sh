@@ -1,17 +1,15 @@
 #!/bin/sh -e
 
-VFILE=version.go
+DATE=$(date '+%F')
 
-echo "// Generated automatically - do not edit!" > $VFILE
-echo "package main" >> $VFILE
-echo "" >> $VFILE
-echo "const Version   = \"$(git describe --tags --always 2>/dev/null)\"" >> $VFILE
-echo "const BuildDate = \"$(date '+%FT%T')\"" >> $VFILE
-echo "const BuildYear = \"$(date '+%Y')\"" >> $VFILE
-echo "const BuildUser = \"$USER\"" >> $VFILE
+if [ -d .git ]; then
+  VERSION=$(git describe --tags --always --dirty 2>/dev/null)
+else
+  VERSION=dev
+fi
 
-echo go install ...
-go build -o timestamp .
+echo go build ...
+go build -o timestamp -ldflags "-s -X main.version=$VERSION -X main.date=$DATE" .
 
 echo go test ...
 go test .
