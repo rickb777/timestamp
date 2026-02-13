@@ -92,7 +92,7 @@ func main() {
 
 	tstamp, err := FormatNumber(nowS, *base)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, err.Error())
+		fmt.Fprintln(os.Stderr, err.Error())
 		os.Exit(1)
 	}
 	fmt.Println(tstamp)
